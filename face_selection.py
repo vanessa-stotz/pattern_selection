@@ -46,20 +46,16 @@ def custom_pattern (selected_var, deselected_var, selection ):
 
 
 class pattern_selection(QtWidgets.QDialog):
-        
-    #Konstruktor
+
+	
     def __init__(self,parent=mayaWindow()):
             
-        # Definiert Standardwerte jeder benötigten 
-        # Variablen in der Klasse.
         self.winName = "Pattern Selection"
         self.geo_name = ""
         self.selection = 0
         self.every_other_variable = 0
         self.selected_variable = 0
         self.not_selected_variable = 0
-        
-        
 
         super(pattern_selection,self).__init__(parent)
               
@@ -68,33 +64,27 @@ class pattern_selection(QtWidgets.QDialog):
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose, 1)
         self.resize(400, 250)
         self.layout()
-    
-    # Diese Funktion definiert den Aufbau der Bedienfläche.
-    def layout(self):
 
-        # Teilt die Bedienfläche in zwei Hauptgruppen ein.
+	
+    def layout(self):
+	
         self.save_selection_group = QtWidgets.QGroupBox("Save Selection")
         self.every_other_group = QtWidgets.QGroupBox("Every Other")
         self.custom_pattern_group = QtWidgets.QGroupBox("Custom Pattern")
         
 
-
         self.save_selection_layout = QtWidgets.QHBoxLayout()
         self.save_selection_button = QtWidgets.QPushButton("Save Selection", self)
         self.save_selection_layout.addWidget(self.save_selection_button)
         self.save_selection_group.setLayout(self.save_selection_layout)
-
-        # Erstellt das Layout für den Text zur Beschreibung 
-        # der Eingabe von den Nutzenden. 
+	
+	
         self.every_other_text_layout = QtWidgets.QHBoxLayout()
         self.every_other_text_layout.setSpacing(2)
-        #self.every_other_text_layout.setContentsMargins(1, 1, 1, 1)
         self.every_other_text = QtWidgets.QLabel("Select every: ")
         self.every_other_input = QtWidgets.QSpinBox()
-        self.every_other_input.setSingleStep(1) #// Will increment the current value with 1 (if you use up arrow key) (if you use down arrow key => -1)
-        self.every_other_input.setValue(0) #// Default/begining value
-        #self.every_other_input = QtWidgets.QLineEdit(self)
-        #self.every_other_input.setText("0")
+        self.every_other_input.setSingleStep(1)
+        self.every_other_input.setValue(0) 
         self.every_other_text.setAlignment(QtCore.Qt.AlignCenter)
         self.every_other_input.setAlignment(QtCore.Qt.AlignCenter)
         self.every_other_text_layout.addWidget(self.every_other_text)
@@ -105,8 +95,6 @@ class pattern_selection(QtWidgets.QDialog):
         self.every_other_button = QtWidgets.QPushButton("Select",self)
         self.every_other_button_layout.addWidget(self.every_other_button)
 
-        # Verbindet alle erstellten Layouts mit
-        # der ersten Hauptgruppe.
         self.every_other_layout = QtWidgets.QVBoxLayout()
         self.every_other_layout.setContentsMargins(6, 1, 6, 2)
         self.every_other_layout.addLayout(self.every_other_text_layout)
@@ -114,15 +102,12 @@ class pattern_selection(QtWidgets.QDialog):
         self.every_other_group.setLayout(self.every_other_layout)
 
 
-
         self.custom_pattern_select_input_layout = QtWidgets.QHBoxLayout()
         self.custom_pattern_select_input_layout.setContentsMargins(1, 1, 1, 1)
         self.custom_pattern_select_text = QtWidgets.QLabel("Select: ")
         self.custom_pattern_select_input = QtWidgets.QSpinBox()
-        self.custom_pattern_select_input.setSingleStep(1) #// Will increment the current value with 1 (if you use up arrow key) (if you use down arrow key => -1)
+        self.custom_pattern_select_input.setSingleStep(1) 
         self.custom_pattern_select_input.setValue(0)
-        #self.every_other_text.setAlignment(QtCore.Qt.AlignCenter)
-        #self.every_other_input.setAlignment(QtCore.Qt.AlignCenter)
         self.custom_pattern_select_input_layout.addWidget(self.custom_pattern_select_text)
         self.custom_pattern_select_input_layout.addWidget(self.custom_pattern_select_input)
 
@@ -132,10 +117,8 @@ class pattern_selection(QtWidgets.QDialog):
         self.custom_pattern_deselect_input_layout.setContentsMargins(1, 1, 1, 1)
         self.custom_pattern_deselect_text = QtWidgets.QLabel("Deselect: ")
         self.custom_pattern_deselect_input = QtWidgets.QSpinBox()
-        self.custom_pattern_deselect_input.setSingleStep(1) #// Will increment the current value with 1 (if you use up arrow key) (if you use down arrow key => -1)
+        self.custom_pattern_deselect_input.setSingleStep(1) 
         self.custom_pattern_deselect_input.setValue(0)
-        #self.every_other_text.setAlignment(QtCore.Qt.AlignCenter)
-        #self.every_other_input.setAlignment(QtCore.Qt.AlignCenter)
         self.custom_pattern_deselect_input_layout.addWidget(self.custom_pattern_deselect_text)
         self.custom_pattern_deselect_input_layout.addWidget(self.custom_pattern_deselect_input)
 
@@ -144,8 +127,6 @@ class pattern_selection(QtWidgets.QDialog):
         self.custom_pattern_button = QtWidgets.QPushButton("Select",self)
         self.custom_pattern_button_layout.addWidget(self.custom_pattern_button)
 
-        # Verbindet alle erstellten Layouts mit
-        # der ersten Hauptgruppe.
         self.custom_pattern_layout = QtWidgets.QVBoxLayout()
         self.custom_pattern_layout.setContentsMargins(6, 1, 6, 2)
         self.custom_pattern_layout.addLayout(self.custom_pattern_select_input_layout)
@@ -154,19 +135,13 @@ class pattern_selection(QtWidgets.QDialog):
         self.custom_pattern_group.setLayout(self.custom_pattern_layout)
 
 
-
-        # Verbindet die beiden Hauptgruppen mit dem Hauptlayout und
-        # setzt dieses.
         main_layout = QtWidgets.QVBoxLayout()
         main_layout.setContentsMargins(6, 6, 6, 6)
         main_layout.addWidget(self.save_selection_group)
         main_layout.addWidget(self.every_other_group)
         main_layout.addWidget(self.custom_pattern_group)
         self.setLayout(main_layout)
-		
-        # Fügt Aktionen zu den Buttons und dem Zahlenregler hinzu.
-        # Diese werden ausgeführt, sobald der Button betätigt
-        # oder der Wert des Zahlenreglers verändert wird.
+
         self.save_selection_button.clicked.connect(self.save_selection)
         self.every_other_button.clicked.connect(self.every_other_selection)
         self.custom_pattern_button.clicked.connect(self.custom_pattern_selection)
@@ -190,13 +165,7 @@ class pattern_selection(QtWidgets.QDialog):
         print(self.deselected_variable)
         custom_pattern(self.selected_variable, self.deselected_variable, self.selection)
 
-       
-
-
-
-    
-
-# Dies sorgt für die Ausführung des Tools.                                 
+                                       
 if __name__=="__main__":
     myWin = pattern_selection()
     myWin.show()
